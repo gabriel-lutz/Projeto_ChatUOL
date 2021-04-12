@@ -1,0 +1,50 @@
+body{
+    background: #F3F3F3;
+    font-family: 'Roboto', sans-serif;
+}
+
+ion-icon{
+    font-size: 50px;
+}
+
+input{
+    width: 85%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.topo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    box-shadow: 0 5px 5px #e8e8e8 ;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.caixa-mensagem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    box-shadow: 0 -5px 5px #e8e8e8 ;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+.caixa-mensagem ion-icon{
+    font-size: 25px;
+}
+
+.enviar-mensagem{
+    outline: none;
+    border: none;
+    font-size: 18px;
+}

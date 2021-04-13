@@ -1,6 +1,7 @@
 body{
     background: #F3F3F3;
     font-family: 'Roboto', sans-serif;
+    line-height: 20px;
 }
 
 ion-icon{
@@ -10,6 +11,48 @@ ion-icon{
 input{
     width: 85%;
     font-family: 'Roboto', sans-serif;
+}
+
+.login{
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    z-index: 2;
+}
+
+.login input{
+    width: 260px;
+    height: 54px;
+    border: 1px solid #d7d7d7 ;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.login button{
+    background: #e7e7e7;
+    outline: none;
+    width: 109px;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #696969;
+}
+
+.login img{
+    margin-top: 25%;
+    margin-bottom: 50px;
+    width: 50%;
+
 }
 
 .topo{
@@ -48,3 +91,38 @@ input{
     border: none;
     font-size: 18px;
 }
+
+.chat{
+    margin: 113px 0 ;
+}
+
+li{
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+.mensagem-recebida{
+    padding: 15px 10px;
+    background: #fff;
+    
+}
+.status-recebido{
+    padding: 15px 10px;
+    background: #dcdcdc;
+}
+.reservado-recebido{
+    padding: 15px 10px;
+    background: #ffdede;
+}
+.horario{
+    margin-right: 5px;
+    color: #AAAAAA;
+}
+
+.invisivel{
+    display:none;
+}
+

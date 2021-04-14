@@ -13,13 +13,15 @@
 <body>
     <div class="login">
         <img src="imagens/logo2.png" alt="">
-        <input type="text">
+        <input type="text" class="nome-usuario">
         <button onclick="logar()">Entrar</button>
     </div>
 
-    <div class="participantesAtivos invisivel">
+    <div class="participantesAtivos invisivel" >
         <div class="voltar" onclick="painel()"></div>
-        <div class="painel"> </div>
+        <div class="painel">
+            <div class="titulo-usuarios">Escolha um contato para enviar a mensagem</div>
+        </div>
     </div>
 
 
@@ -49,6 +51,9 @@
         <input type="text" class="enviar-mensagem">
         <ion-icon name="paper-plane-outline" onclick="enviar()"></ion-icon>
     </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/script.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
 </body>

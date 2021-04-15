@@ -1,5 +1,5 @@
 let nomeUsuario;
-
+let arrayDeMensagens = []
 function logar(){
     
     nomeUsuario = { name: document.querySelector(".nome-usuario").value }
@@ -10,7 +10,6 @@ function logar(){
 }
 
 function sucessoLogin(){
-    alert("sucesso no login")
     let logar = document.querySelector(".login")
     logar.classList.add("invisivel")
     setInterval(solicitarMensagensServidor, 3000)
@@ -18,7 +17,7 @@ function sucessoLogin(){
 }
 
 function falhaLogin(){
-    alert("O nome já está em uso, escolha outro nome!")
+    alert("O nome já está em uso, escolha outro nome!") 
 }
 
 function manterLogado(){
@@ -28,24 +27,57 @@ function manterLogado(){
 
 
 function solicitarMensagensServidor(){
-    const atualizar = axios.get("servidor")
-    atualizar.then(atualizarMensagens)
-    atualizar.catch(falhaAtualizarMensagens)
+    const atualizar = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
+    atualizar.then(criarArrayDeMensagens)
+    atualizar.catch(falhaSolicitarMensagens)
 }
 
-function sucessoAtualizarMensagens(mensagens){
-
+function criarArrayDeMensagens(mensagens){
+    arrayDeMensagens = []
+    for(let i = 0; i < mensagens.data.length; i++){
+        if(mensagens.data[i].type === "status"){
+            arrayDeMensagens.push(`
+            <li class="status-recebido">
+            <p class="mensagem"><span class="horario">(${mensagens.data[i].time})</span> <strong>${mensagens.data[i].from}</strong> ${mensagens.data[i].text}</p> 
+            </li>
+            `)
+        }else if(mensagens.data[i].type === "message"){
+            arrayDeMensagens.push(`
+            <li class="mensagem-recebida">
+            <p class="mensagem"><span class="horario">(${mensagens.data[i].time})</span> <strong>${mensagens.data[i].from}</strong> para <strong>${mensagens.data[i].to}</strong>: ${mensagens.data[i].text} </p> 
+            </li>
+            `)
+        }else if(mensagens.data[i].type === "private_message" && mensagens.data[i].to === nomeUsuario){
+            arrayDeMensagens.push(`
+            <li class="reservado-recebido">
+            <p class="mensagem"><span class="horario">(${mensagens.data[i].time})</span><strong>${mensagens.data[i].from}</strong> reservadamente para <strong>${mensagens.data[i].to}</strong>: ${mensagens.data[i].text}</p> 
+            </li>
+            `)
+        }
+    }
+    atualizarMensagensNaTela();
 }
 
-function falhaAtualizarMensagens(){
+function falhaSolicitarMensagens(){
 
     let logar = document.querySelector(".login")
     logar.classList.remove("invisivel")
 }
 
-
+function atualizarMensagensNaTela(){
+    let atualizar = document.querySelector(".chat")
+    atualizar.innerHTML = ""
+    for(let i = 0; i < arrayDeMensagens.length; i++){
+    atualizar.innerHTML += arrayDeMensagens[i] 
+    }
+}
 
 function painel(){
     let voltar = document.querySelector(".participantesAtivos")
     voltar.classList.toggle("invisivel")
+}
+
+
+function enviar(){
+    
 }

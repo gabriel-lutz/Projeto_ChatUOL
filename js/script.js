@@ -1,5 +1,8 @@
 let nomeUsuario;
 let arrayDeMensagens = []
+let solicitarMsgID;
+let manterLogadoID;
+
 function logar(){
     
     nomeUsuario = { name: document.querySelector(".nome-usuario").value }
@@ -12,8 +15,8 @@ function logar(){
 function sucessoLogin(){
     let logar = document.querySelector(".login")
     logar.classList.add("invisivel")
-    setInterval(solicitarMensagensServidor, 3000)
-    setInterval(manterLogado, 5000)
+    solicitarMsgID = setInterval(solicitarMensagensServidor, 3000)
+    manterLogadoID = setInterval(manterLogado, 5000)
 }
 
 function falhaLogin(){
@@ -78,9 +81,18 @@ function painel(){
 }
 
 
-function enviar(){
-    const mensagem = document.querySelector(".enviar-mensagem").value
-    document.querySelector(".enviar-mensagem").value = null
-    const pacote = {from: nomeUsuario.name, to: "Todos", text: mensagem, type:"message"}
-    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", pacote)
+function enviar(event){
+    if(event.keyCode == 13){
+        const mensagem = document.querySelector(".enviar-mensagem").value
+        document.querySelector(".enviar-mensagem").value = null
+        const pacote = {from: nomeUsuario.name, to: "Todos", text: mensagem, type:"message"}
+        postarMensagem = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", pacote)
+        postarMensagem.catch(falhouAoEnviarMsg)
+    }
+}
+
+function falhouAoEnviarMsg(){
+    clearInterval(manterLogadoID)
+    clearInterval(solicitarMsgID)
+    alert("Voce não está mais logado no servidor. Logue novamente.")
 }

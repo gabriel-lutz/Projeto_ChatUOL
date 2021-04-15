@@ -113,8 +113,9 @@ input{
 }
 
 .chat{
-    margin: 113px 0 ;
+    margin: 113px 0 73px 0;
     word-break: break-all;
+    overflow-y: hidden;
 }
 
 li{

@@ -3,18 +3,18 @@ let arrayDeMensagens = []
 let solicitarMsgID;
 let manterLogadoID;
 
-function logar(){
-    
+function logar(event){
+    if(event.keyCode == 13){
     nomeUsuario = { name: document.querySelector(".nome-usuario").value }
     const solicitarLogin = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants", nomeUsuario )
     solicitarLogin.then(sucessoLogin)
     solicitarLogin.catch(falhaLogin)
-    
+    }
 }
 
 function sucessoLogin(){
     let logar = document.querySelector(".login")
-    logar.classList.add("invisivel")
+    logar.classList.toggle("invisivel")
     solicitarMsgID = setInterval(solicitarMensagensServidor, 3000)
     manterLogadoID = setInterval(manterLogado, 5000)
 }
@@ -26,8 +26,6 @@ function falhaLogin(){
 function manterLogado(){
     axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/status", nomeUsuario)
 }
-
-
 
 function solicitarMensagensServidor(){
     const atualizar = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
@@ -73,6 +71,8 @@ function atualizarMensagensNaTela(){
     for(let i = 0; i < arrayDeMensagens.length; i++){
     atualizar.innerHTML += arrayDeMensagens[i] 
     }
+    const scrollUltimaMsg = document.querySelector(`li:nth-child(${arrayDeMensagens.length - 1})`);
+    scrollUltimaMsg.scrollIntoView();
 }
 
 function painel(){
@@ -92,6 +92,7 @@ function enviar(event){
 }
 
 function falhouAoEnviarMsg(){
+    window.location.reload(true)
     clearInterval(manterLogadoID)
     clearInterval(solicitarMsgID)
     alert("Voce não está mais logado no servidor. Logue novamente.")

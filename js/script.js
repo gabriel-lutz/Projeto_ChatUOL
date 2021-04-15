@@ -79,5 +79,8 @@ function painel(){
 
 
 function enviar(){
-    
+    const mensagem = document.querySelector(".enviar-mensagem").value
+    document.querySelector(".enviar-mensagem").value = null
+    const pacote = {from: nomeUsuario.name, to: "Todos", text: mensagem, type:"message"}
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", pacote)
 }

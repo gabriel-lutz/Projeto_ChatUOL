@@ -12,11 +12,10 @@
 </head>
 <body>
     <div class="login">
-        <img src="imagens/logo2.png" alt="">
-        <input type="text" class="nome-usuario"  onkeydown="logar(event)">
-        <button onclick="logar(13)">Entrar</button>
+        <img src="imagens/logo2.png" alt="Logo chat UOL">
+        <input type="text" class="nome-usuario" onkeydown="logar(event)">
+        <button onclick="logar('clicado')">Entrar</button>
     </div>
-
     <div class="participantesAtivos invisivel" >
         <div class="voltar" onclick="painel()"></div>
         <div class="painel">
@@ -24,14 +23,13 @@
         </div>
     </div>
     <div class="topo">
-        <img src="imagens/logo.png" alt="">
+        <img src="imagens/logo.png" alt="Logo chat UOL">
         <ion-icon name="people" onclick="painel()"></ion-icon>
     </div>
-    <ul class="chat">    
-    </ul>
+    <ul class="chat"></ul>
     <div class="caixa-mensagem">
         <input type="text" class="enviar-mensagem" onkeydown="enviar(event)">
-        <ion-icon name="paper-plane-outline" onclick="enviar()"></ion-icon>
+        <ion-icon name="paper-plane-outline" onclick="enviar('clicado')"></ion-icon>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/script.js"></script>

@@ -2,6 +2,7 @@ let nomeUsuario;
 let arrayDeMensagens = []
 let destinatario = "Todos"
 let tipoMsg = "message"
+
 function logar(event){
     if(event.keyCode == 13 || event === 'clicado'){
     nomeUsuario = { name: document.querySelector(".nome-usuario").value }
@@ -108,7 +109,6 @@ function renderizarParticipantes(listaParticipantes){
                 <div onclick="selecionaDestinatario('Todos')"><ion-icon name="people"></ion-icon> <span class="nome">Todos</span>  </div>
                 <ion-icon name="checkmark-sharp" class="invisivel Todos "></ion-icon>
             </div>
-    
     `
     for(let i = 0; i < listaParticipantes.data.length; i++){
         if(destinatario === listaParticipantes.data[i].name){
@@ -137,7 +137,6 @@ function selecionaDestinatario(nomeDestinatario){
     seleciona = document.querySelector(`.${nomeDestinatario}`)
     console.log(seleciona)
     seleciona.classList.add("check")
-
 }
 
 function selecionaTipoMsg(tipoMsgAEnviar){

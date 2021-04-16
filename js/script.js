@@ -141,7 +141,7 @@ function selecionaDestinatario(nomeDestinatario){
 
 function selecionaTipoMsg(tipoMsgAEnviar){
     tipoMsg = tipoMsgAEnviar
-    if(tipoMsgAEnviar === "message"){
+    if(tipoMsgAEnviar === 'message'){
         const deseleciona = document.querySelector(".privado")
         deseleciona.classList.remove("check")
         const seleciona = document.querySelector(".publico")
@@ -149,7 +149,7 @@ function selecionaTipoMsg(tipoMsgAEnviar){
     }else{
         const deseleciona = document.querySelector(".publico")
         deseleciona.classList.remove("check")
-        const seleciona = document.querySelector(".publico")
+        const seleciona = document.querySelector(".privado")
         seleciona.classList.add("check")
     }
 }

@@ -105,24 +105,24 @@ function solicitarParticipantes(){
 function renderizarParticipantes(listaParticipantes){
     let elementoListaParticipantes = document.querySelector(".lista-usuarios")
     elementoListaParticipantes.innerHTML = `
-        <div class="usuario-presente">
-                <div onclick="selecionaDestinatario('Todos')"><ion-icon name="people"></ion-icon> <span class="nome">Todos</span>  </div>
+        <div class="usuario-presente" onclick="selecionaDestinatario('Todos')">
+                <div ><ion-icon name="people"></ion-icon> <span class="nome">Todos</span>  </div>
                 <ion-icon name="checkmark-sharp" class="invisivel Todos "></ion-icon>
             </div>
     `
     for(let i = 0; i < listaParticipantes.data.length; i++){
         if(destinatario === listaParticipantes.data[i].name){
         elementoListaParticipantes.innerHTML += `
-        <li class="usuario-presente">
-            <div onclick="selecionaDestinatario('${listaParticipantes.data[i].name}')"><ion-icon name="people"></ion-icon> <span class="nome">${listaParticipantes.data[i].name}</span>  </div>
-            <ion-icon name="checkmark-sharp" class='invisivel check ${listaParticipantes.data[i].name}'></ion-icon>
+        <li class="usuario-presente" onclick="selecionaDestinatario('${listaParticipantes.data[i].name}')">
+            <div ><ion-icon name="people"></ion-icon> <span class="nome">${listaParticipantes.data[i].name}</span>  </div>
+            <ion-icon name="checkmark-sharp" class="invisivel check ${listaParticipantes.data[i].name}"></ion-icon>
         </li> 
         `
         }else{
             elementoListaParticipantes.innerHTML += `
-            <li class="usuario-presente">
-                <div onclick="selecionaDestinatario('${listaParticipantes.data[i].name}')"><ion-icon name="people"></ion-icon> <span class="nome">${listaParticipantes.data[i].name}</span>  </div>
-                <ion-icon name="checkmark-sharp" class='invisivel ${listaParticipantes.data[i].name}'></ion-icon>
+            <li class="usuario-presente" onclick="selecionaDestinatario('${listaParticipantes.data[i].name}')">
+                <div ><ion-icon name="people"></ion-icon> <span class="nome">${listaParticipantes.data[i].name}</span>  </div>
+                <ion-icon name="checkmark-sharp" class="invisivel ${listaParticipantes.data[i].name}"></ion-icon>
             </li> 
             `
         }
@@ -133,7 +133,6 @@ function selecionaDestinatario(nomeDestinatario){
     destinatario = nomeDestinatario;
     const deseleciona = document.querySelector(".lista-usuarios .check")
     deseleciona.classList.remove("check")
-    alert(nomeDestinatario)
     seleciona = document.querySelector(`.${nomeDestinatario}`)
     console.log(seleciona)
     seleciona.classList.add("check")

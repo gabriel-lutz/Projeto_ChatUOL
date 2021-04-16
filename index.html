@@ -19,7 +19,19 @@
     <div class="participantesAtivos invisivel" >
         <div class="voltar" onclick="painel()"></div>
         <div class="painel">
-            <div class="titulo-usuarios">Escolha um contato para enviar a mensagem</div>
+            <div class="titulo-secao">Escolha um contato para enviar a mensagem:</div>
+            
+            <ul class="lista-usuarios">
+            </ul>
+            <div class="titulo-secao">Escolha a visibilidade:</div>
+            <div class="usuario-presente">
+                <div onclick="selecionaTipoMsg('message')"><ion-icon name="lock-open-sharp"></ion-icon> <span class="nome">Público</span>  </div>
+                <ion-icon name="checkmark-sharp" class="invisivel publico check"></ion-icon>
+            </div>
+            <div class="usuario-presente">
+                <div onclick="selecionaTipoMsg('private_message')"><ion-icon name="lock-closed-sharp"></ion-icon> <span class="nome">Reservado</span>  </div>
+                <ion-icon name="checkmark-sharp" class="invisivel privado"></ion-icon>
+            </div>
         </div>
     </div>
     <div class="topo">

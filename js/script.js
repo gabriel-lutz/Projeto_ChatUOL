@@ -1,6 +1,7 @@
 let nomeUsuario;
 let arrayDeMensagens = []
-
+let destinatario = "Todos"
+let tipoMsg = "message"
 function logar(event){
     if(event.keyCode == 13 || event === 'clicado'){
     nomeUsuario = { name: document.querySelector(".nome-usuario").value }
@@ -12,10 +13,12 @@ function logar(event){
 
 function sucessoLogin(){
     solicitarMensagensServidor()
+    solicitarParticipantes()
     let logar = document.querySelector(".login")
     logar.classList.toggle("invisivel")
     setInterval(solicitarMensagensServidor, 3000)
     setInterval(manterLogado, 5000)
+    setInterval(solicitarParticipantes, 10000)
 }
 
 function falhaLogin(){
@@ -69,7 +72,7 @@ function atualizarMensagensNaTela(){
     for(let i = 0; i < arrayDeMensagens.length; i++){
         atualizar.innerHTML += arrayDeMensagens[i] 
     }
-    const scrollUltimaMsg = document.querySelector(`li:nth-child(${arrayDeMensagens.length - 1})`);
+    const scrollUltimaMsg = document.querySelector(`.chat li:last-child`);
     scrollUltimaMsg.scrollIntoView();
 }
 
@@ -82,7 +85,7 @@ function enviar(event){
     if(event.keyCode == 13 || event === 'clicado'){
         const mensagem = document.querySelector(".enviar-mensagem").value
         document.querySelector(".enviar-mensagem").value = null
-        const pacote = {from: nomeUsuario.name, to: "Todos", text: mensagem, type:"message"}
+        const pacote = {from: nomeUsuario.name, to: destinatario, text: mensagem, type:tipoMsg}
         postarMensagem = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", pacote)
         postarMensagem.catch(falhouAoEnviarMsg)
     }
@@ -91,4 +94,63 @@ function enviar(event){
 function falhouAoEnviarMsg(){
     window.location.reload(true)
     alert("Voce não está mais logado no servidor. Logue novamente.")
+}
+
+function solicitarParticipantes(){
+    const participantes = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants")
+    participantes.then(renderizarParticipantes)
+}
+
+function renderizarParticipantes(listaParticipantes){
+    let elementoListaParticipantes = document.querySelector(".lista-usuarios")
+    elementoListaParticipantes.innerHTML = `
+        <div class="usuario-presente">
+                <div onclick="selecionaDestinatario('Todos')"><ion-icon name="people"></ion-icon> <span class="nome">Todos</span>  </div>
+                <ion-icon name="checkmark-sharp" class="invisivel Todos "></ion-icon>
+            </div>
+    
+    `
+    for(let i = 0; i < listaParticipantes.data.length; i++){
+        if(destinatario === listaParticipantes.data[i].name){
+        elementoListaParticipantes.innerHTML += `
+        <li class="usuario-presente">
+            <div onclick="selecionaDestinatario('${listaParticipantes.data[i].name}')"><ion-icon name="people"></ion-icon> <span class="nome">${listaParticipantes.data[i].name}</span>  </div>
+            <ion-icon name="checkmark-sharp" class='invisivel check ${listaParticipantes.data[i].name}'></ion-icon>
+        </li> 
+        `
+        }else{
+            elementoListaParticipantes.innerHTML += `
+            <li class="usuario-presente">
+                <div onclick="selecionaDestinatario('${listaParticipantes.data[i].name}')"><ion-icon name="people"></ion-icon> <span class="nome">${listaParticipantes.data[i].name}</span>  </div>
+                <ion-icon name="checkmark-sharp" class='invisivel ${listaParticipantes.data[i].name}'></ion-icon>
+            </li> 
+            `
+        }
+    }
+}
+
+function selecionaDestinatario(nomeDestinatario){
+    destinatario = nomeDestinatario;
+    const deseleciona = document.querySelector(".lista-usuarios .check")
+    deseleciona.classList.remove("check")
+    alert(nomeDestinatario)
+    seleciona = document.querySelector(`.${nomeDestinatario}`)
+    console.log(seleciona)
+    seleciona.classList.add("check")
+
+}
+
+function selecionaTipoMsg(tipoMsgAEnviar){
+    tipoMsg = tipoMsgAEnviar
+    if(tipoMsgAEnviar === "message"){
+        const deseleciona = document.querySelector(".privado")
+        deseleciona.classList.remove("check")
+        const seleciona = document.querySelector(".publico")
+        seleciona.classList.add("check")
+    }else{
+        const deseleciona = document.querySelector(".publico")
+        deseleciona.classList.remove("check")
+        const seleciona = document.querySelector(".publico")
+        seleciona.classList.add("check")
+    }
 }
